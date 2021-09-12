@@ -36,21 +36,22 @@ class IntegrationBlueprintApiClient:
         self._access_token = None
 
     async def _get_access_token(self):
-        if self._access_token:
-            return self._access_token
-        resp = await self.fetch(
-            "login",
-            params={
-                "username": self._username,
-                "password": self._password,
-                "site": self._site_id,
-                "type": "permanent",
-            },
-        )
+        if not self._access_token:
+            resp = await self.fetch(
+                "login",
+                params={
+                    "username": self._username,
+                    "password": self._password,
+                    "site": self._site_id,
+                    "type": "permanent",
+                },
+            )
 
-        if resp:
-            data = await resp.json()
-            self._access_token = data["access_token"]
+            if resp:
+                data = await resp.json()
+                self._access_token = data["access_token"]
+
+        return self._access_token
 
     async def async_get_data(self) -> dict:
         """Get data from the API."""
@@ -80,7 +81,7 @@ class IntegrationBlueprintApiClient:
                     ENTRY_POINT,
                     params={
                         "access_token": (
-                            "none" if cmd == "login" else self._access_token
+                            "none" if cmd == "login" else self._get_access_token()
                         ),
                         "meter_id": self._meter_id,
                         **params,
