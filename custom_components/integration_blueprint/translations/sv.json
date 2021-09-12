@@ -1,0 +1,31 @@
+{
+    "config": {
+        "step": {
+            "user": {
+                "title": "Energiinfo",
+                "description": "Om du behöver hjälp med konfigurationen se här: https://github.com/energiinfo-home-assistant",
+                "data": {
+                    "username": "Användarnamn",
+                    "password": "Lösenord"
+                }
+            }
+        },
+        "error": {
+            "auth": "Användarnamn/Lösenord är fel."
+        },
+        "abort": {
+            "single_instance_allowed": "Endast en instans är tillåten."
+        }
+    },
+    "options": {
+        "step": {
+            "user": {
+                "data": {
+                    "binary_sensor": "Binär sensor aktiverad",
+                    "sensor": "Sensor avaktiverad",
+                    "switch": "Switch aktiverad"
+                }
+            }
+        }
+    }
+}

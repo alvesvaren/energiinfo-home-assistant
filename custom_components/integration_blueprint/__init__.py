@@ -18,7 +18,9 @@ from .api import IntegrationBlueprintApiClient
 
 from .const import (
     CONF_PASSWORD,
+    CONF_SITE_ID,
     CONF_USERNAME,
+    CONF_METER_ID,
     DOMAIN,
     PLATFORMS,
     STARTUP_MESSAGE,
@@ -42,9 +44,13 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
 
     username = entry.data.get(CONF_USERNAME)
     password = entry.data.get(CONF_PASSWORD)
+    meter_id = entry.data.get(CONF_METER_ID)
+    site_id = entry.data.get(CONF_SITE_ID)
 
     session = async_get_clientsession(hass)
-    client = IntegrationBlueprintApiClient(username, password, session)
+    client = IntegrationBlueprintApiClient(
+        username or "", password or "", meter_id or "", site_id or "", session
+    )
 
     coordinator = BlueprintDataUpdateCoordinator(hass, client=client)
     await coordinator.async_refresh()
@@ -58,7 +64,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
         if entry.options.get(platform, True):
             coordinator.platforms.append(platform)
             hass.async_add_job(
-                hass.config_entries.async_forward_entry_setup(entry, platform)
+                hass.config_entries.async_forward_entry_setup, entry, platform
             )
 
     entry.add_update_listener(async_reload_entry)

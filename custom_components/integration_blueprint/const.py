@@ -1,14 +1,14 @@
 """Constants for integration_blueprint."""
 # Base component constants
-NAME = "Integration blueprint"
-DOMAIN = "integration_blueprint"
+NAME = "Energiinfo"
+DOMAIN = "energiinfo"
 DOMAIN_DATA = f"{DOMAIN}_data"
 VERSION = "0.0.1"
-ATTRIBUTION = "Data provided by http://jsonplaceholder.typicode.com/"
-ISSUE_URL = "https://github.com/custom-components/integration_blueprint/issues"
+ATTRIBUTION = "Data provided by https://www.svenskaenergigruppen.se/"
+ISSUE_URL = "https://github.com/alvesvaren/energiinfo-home-assistant/issues"
 
 # Icons
-ICON = "mdi:format-quote-close"
+ICON = "mdi:lightning-bolt"
 
 # Device classes
 BINARY_SENSOR_DEVICE_CLASS = "connectivity"
@@ -24,6 +24,8 @@ PLATFORMS = [BINARY_SENSOR, SENSOR, SWITCH]
 CONF_ENABLED = "enabled"
 CONF_USERNAME = "username"
 CONF_PASSWORD = "password"
+CONF_METER_ID = "meter_id"
+CONF_SITE_ID = "site_id"
 
 # Defaults
 DEFAULT_NAME = DOMAIN

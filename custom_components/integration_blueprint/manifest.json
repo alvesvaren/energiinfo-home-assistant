@@ -1,12 +1,13 @@
 {
-  "domain": "integration_blueprint",
-  "name": "Integration blueprint",
-  "documentation": "https://github.com/custom-components/integration_blueprint",
+  "domain": "energiinfo",
+  "name": "Energiinfo.se",
+  "documentation": "https://github.com/alvesvaren/energiinfo-home-assistant",
   "iot_class": "cloud_polling",
-  "issue_tracker": "https://github.com/custom-components/integration_blueprint/issues",
-  "version": "0.0.0",
+  "issue_tracker": "https://github.com/alvesvaren/energiinfo-home-assistant/issues",
+  "version": "0.0.1",
   "config_flow": true,
   "codeowners": [
-    "@ludeeus"
+    "@ludeeus",
+    "@alvesvaren"
   ]
 }

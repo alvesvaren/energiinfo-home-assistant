@@ -7,7 +7,9 @@ import voluptuous as vol
 from .api import IntegrationBlueprintApiClient
 from .const import (
     CONF_PASSWORD,
+    CONF_SITE_ID,
     CONF_USERNAME,
+    CONF_METER_ID,
     DOMAIN,
     PLATFORMS,
 )
@@ -33,7 +35,10 @@ class BlueprintFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
 
         if user_input is not None:
             valid = await self._test_credentials(
-                user_input[CONF_USERNAME], user_input[CONF_PASSWORD]
+                user_input[CONF_USERNAME],
+                user_input[CONF_PASSWORD],
+                user_input[CONF_METER_ID],
+                user_input[CONF_SITE_ID],
             )
             if valid:
                 return self.async_create_entry(
@@ -48,6 +53,8 @@ class BlueprintFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         # Provide defaults for form
         user_input[CONF_USERNAME] = ""
         user_input[CONF_PASSWORD] = ""
+        user_input[CONF_METER_ID] = ""
+        user_input[CONF_SITE_ID] = ""
 
         return await self._show_config_form(user_input)
 
@@ -64,16 +71,20 @@ class BlueprintFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
                 {
                     vol.Required(CONF_USERNAME, default=user_input[CONF_USERNAME]): str,
                     vol.Required(CONF_PASSWORD, default=user_input[CONF_PASSWORD]): str,
+                    vol.Required(CONF_METER_ID, default=user_input[CONF_METER_ID]): str,
+                    vol.Required(CONF_SITE_ID, default=user_input[CONF_SITE_ID]): str,
                 }
             ),
             errors=self._errors,
         )
 
-    async def _test_credentials(self, username, password):
+    async def _test_credentials(self, username, password, meter_id, site_id):
         """Return true if credentials is valid."""
         try:
             session = async_create_clientsession(self.hass)
-            client = IntegrationBlueprintApiClient(username, password, session)
+            client = IntegrationBlueprintApiClient(
+                username, password, meter_id, site_id, session
+            )
             await client.async_get_data()
             return True
         except Exception:  # pylint: disable=broad-except
