@@ -79,16 +79,20 @@ class IntegrationBlueprintApiClient:
                 resp = await self._session.get(
                     ENTRY_POINT,
                     params={
-                        "access_token": "none"
-                        if cmd == "login"
-                        else self._access_token,
+                        "access_token": (
+                            "none" if cmd == "login" else self._access_token
+                        ),
                         "meter_id": self._meter_id,
                         **params,
                     },
                     headers={**HEADERS, **headers},
                 )
 
-                return await resp.json()
+                data = await resp.json()
+
+                _LOGGER.info(data)
+
+                return data
 
         except asyncio.TimeoutError as exception:
             _LOGGER.error(
