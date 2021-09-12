@@ -6,7 +6,9 @@
                 "description": "If you need help with the configuration have a look here: https://github.com/alvesvaren/energiinfo-home-assistant",
                 "data": {
                     "username": "Username",
-                    "password": "Password"
+                    "password": "Password",
+                    "meter_id": "Meter-id (can be seen in the request to the api)",
+                    "site_id": "Site id (can also be seen in the same request)"
                 }
             }
         },
