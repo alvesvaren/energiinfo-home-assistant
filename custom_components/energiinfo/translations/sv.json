@@ -3,7 +3,7 @@
         "step": {
             "user": {
                 "title": "Energiinfo",
-                "description": "Om du behöver hjälp med konfigurationen se här: https://github.com/energiinfo-home-assistant",
+                "description": "Om du behöver hjälp med konfigurationen se här: https://github.com/alvesvaren/energiinfo-home-assistant",
                 "data": {
                     "username": "Användarnamn",
                     "password": "Lösenord"
